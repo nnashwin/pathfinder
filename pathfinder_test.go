@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestDoesExistt(t *testing.T) {
+func TestDoesExist(t *testing.T) {
 	cases := []struct {
 		path     string
 		expected bool
