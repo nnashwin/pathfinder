@@ -21,9 +21,11 @@ func CreateFile(path string) error {
 	}
 
 	dir, _ := filepath.Split(path)
-	err := os.MkdirAll(dir, os.ModePerm)
-	if err != nil {
-		return err
+	if dir != "" {
+		err := os.MkdirAll(dir, os.ModePerm)
+		if err != nil {
+			return err
+		}
 	}
 
 	newFile, err := os.Create(path)

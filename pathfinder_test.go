@@ -37,9 +37,19 @@ func TestCreateFile(t *testing.T) {
 		failMsg string
 	}{
 		{
-			"./fixtures/filedir/nestedDir2/testFile",
+			"filedir/nestedDir2/testFile",
 			"The path created was incorrect.",
 		},
+		{
+			"filedir.file",
+			"The create file without a nested path failed",
+		},
+	}
+
+	// change the dir to the fixture dir before running the tests
+	err := os.Chdir("./fixtures")
+	if err != nil {
+		t.Error(err)
 	}
 
 	for _, c := range cases {
@@ -47,7 +57,7 @@ func TestCreateFile(t *testing.T) {
 			t.Error("Cleanup on the last test was not done correct.  The path should be false before we create the file.")
 		}
 
-		err := CreateFile(c.path)
+		err = CreateFile(c.path)
 		if err != nil {
 			t.Errorf("The following problem occurred when running CreateFile: %s", err)
 		}
@@ -57,9 +67,14 @@ func TestCreateFile(t *testing.T) {
 		}
 	}
 
-	err := os.RemoveAll("./fixtures/filedir")
+	err = os.RemoveAll("./fixtures/filedir")
 	if err != nil {
 		t.Errorf("Cleanup in the CreatePath test failed with the following error: %s", err)
+	}
+
+	err = os.Chdir("../")
+	if err != nil {
+		t.Error(err)
 	}
 }
 
