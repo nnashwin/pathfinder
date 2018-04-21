@@ -22,3 +22,21 @@ if err != nil {
 	// log the error however you want
 }
 ```
+
+## API
+
+### pathfinder.DoesExist(path string)
+
+Returns true if the path exists and false if it doesn't.
+
+### pathfinder.CreateFile(path string)
+
+Returns an error.  This will be nil if the file was able to be created.
+
+### pathfinder.CreateDir(path string)
+
+Returns an error.  This will be nil if the dir was able to be created.
+
+## License
+
+MIT © Tyler Boright
