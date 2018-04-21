@@ -65,11 +65,11 @@ func TestCreateFile(t *testing.T) {
 		if DoesExist(c.path) != true {
 			t.Error("The Create File function didn't create a path.")
 		}
-	}
 
-	err = os.RemoveAll("./fixtures/filedir")
-	if err != nil {
-		t.Errorf("Cleanup in the CreatePath test failed with the following error: %s", err)
+		err = os.RemoveAll(c.path)
+		if err != nil {
+			t.Errorf("Cleanup in the CreatePath test failed with the following error: %s", err)
+		}
 	}
 
 	err = os.Chdir("../")
