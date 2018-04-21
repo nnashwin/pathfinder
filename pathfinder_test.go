@@ -31,7 +31,7 @@ func TestDoesExist(t *testing.T) {
 	}
 }
 
-func TestCreatePath(t *testing.T) {
+func TestCreateFile(t *testing.T) {
 	cases := []struct {
 		path    string
 		failMsg string
@@ -40,7 +40,34 @@ func TestCreatePath(t *testing.T) {
 			"./fixtures/filedir/nestedDir2/testFile",
 			"The path created was incorrect.",
 		},
+	}
 
+	for _, c := range cases {
+		if DoesExist(c.path) != false {
+			t.Error("Cleanup on the last test was not done correct.  The path should be false before we create the file.")
+		}
+
+		err := CreateFile(c.path)
+		if err != nil {
+			t.Errorf("The following problem occurred when running CreateFile: %s", err)
+		}
+
+		if DoesExist(c.path) != true {
+			t.Error("The Create File function didn't create a path.")
+		}
+	}
+
+	err := os.RemoveAll("./fixtures/filedir")
+	if err != nil {
+		t.Errorf("Cleanup in the CreatePath test failed with the following error: %s", err)
+	}
+}
+
+func TestCreateDir(t *testing.T) {
+	cases := []struct {
+		path    string
+		failMsg string
+	}{
 		{
 			"./fixtures/filedir/seconddir/",
 			"The path created was incorrect.",
@@ -52,18 +79,18 @@ func TestCreatePath(t *testing.T) {
 			t.Error("Cleanup on the last test was not done correct.  The path should be false before we create the file.")
 		}
 
-		err := CreatePath(c.path)
+		err := CreateDir(c.path)
 		if err != nil {
-			t.Errorf("The following problem occurred when running CreatePath: %s", err)
+			t.Errorf("The following problem occurred when running CreateDir: %s", err)
 		}
 
 		if DoesExist(c.path) != true {
-			t.Error("The Create Path function didn't create a path.")
+			t.Error("The Create Dir function didn't create a path.")
 		}
 	}
 
 	err := os.RemoveAll("./fixtures/filedir")
 	if err != nil {
-		t.Errorf("Cleanup in the CreatePath test failed with the following error: %s", err)
+		t.Errorf("Cleanup in the CreateDir test failed with the following error: %s", err)
 	}
 }

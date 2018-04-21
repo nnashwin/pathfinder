@@ -1,7 +1,7 @@
 package pathfinder
 
 import (
-	"log"
+	"errors"
 	"os"
 	"path/filepath"
 )
@@ -15,31 +15,36 @@ func DoesExist(path string) bool {
 	return true
 }
 
-func CreatePath(path string) error {
+func CreateFile(path string) error {
 	if DoesExist(path) == true {
-		log.Fatal("You can not create a path that already exists.")
+		return errors.New("You can not create a file that already exists.")
 	}
 
-	dir, file := filepath.Split(path)
-	if file == "" {
-		err := os.MkdirAll(path, os.ModePerm)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		return nil
-	} else {
-		err := os.MkdirAll(dir, os.ModePerm)
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		newFile, err := os.Create(path)
-		if err != nil {
-			log.Fatal(err)
-		}
-		defer newFile.Close()
-
-		return nil
+	dir, _ := filepath.Split(path)
+	err := os.MkdirAll(dir, os.ModePerm)
+	if err != nil {
+		return err
 	}
+
+	newFile, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer newFile.Close()
+
+	return nil
+}
+
+func CreateDir(path string) error {
+	if DoesExist(path) == true {
+		return errors.New("You can not create a directory that already exists.")
+	}
+
+	err := os.MkdirAll(path, os.ModePerm)
+	if err != nil {
+		return err
+	}
+
+	return nil
+
 }
