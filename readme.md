@@ -25,17 +25,29 @@ if err != nil {
 
 ## API
 
-### pathfinder.DoesExist(path string)
+### pathfinder.DoesExist(path string) bool
 
-Returns true if the path exists and false if it doesn't.
+Returns a boolean denoting whether or not the path exists.
 
-### pathfinder.CreateFile(path string)
+### pathfinder.CreateFile(path string) error
 
 Returns an error.  This will be nil if the file was able to be created.
 
-### pathfinder.CreateDir(path string)
+### pathfinder.CreateDir(path string) error
 
 Returns an error.  This will be nil if the dir was able to be created.
+
+### pathfinder.GetDir(path string) string
+
+Returns the dir from a filepath string.  If the filepath string is simply a file, it will return a blank string
+
+```
+pathfinder.GetDir("/.dir/dir/dir.file")
+// => "/.dir/dir/"
+
+pathfinder.GetDir("dir.file")
+// => ""
+```
 
 ## License
 
