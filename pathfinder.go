@@ -50,3 +50,9 @@ func CreateDir(path string) error {
 	return nil
 
 }
+
+func GetDir(path string) (dir string) {
+	dir, _ = filepath.Split(path)
+
+	return dir
+}

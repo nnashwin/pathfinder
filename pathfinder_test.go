@@ -109,3 +109,25 @@ func TestCreateDir(t *testing.T) {
 		t.Errorf("Cleanup in the CreateDir test failed with the following error: %s", err)
 	}
 }
+
+func TestGetDir(t *testing.T) {
+	cases := []struct {
+		path     string
+		expected string
+	}{
+		{
+			"/.dir/dir/dir.file",
+			"/.dir/dir/",
+		},
+		{
+			"dir.file",
+			"",
+		},
+	}
+
+	for _, c := range cases {
+		if GetDir(c.path) != c.expected {
+			t.Errorf("The Get Dir function didn't return the expected dir from the path: %s", c.path)
+		}
+	}
+}
