@@ -123,6 +123,10 @@ func TestGetDir(t *testing.T) {
 			"dir.file",
 			"",
 		},
+		{
+			"/../dir.file",
+			"/",
+		},
 	}
 
 	for _, c := range cases {

@@ -52,7 +52,7 @@ func CreateDir(path string) error {
 }
 
 func GetDir(path string) (dir string) {
-	dir, _ = filepath.Split(path)
+	dir, _ = filepath.Split(filepath.Clean(path))
 
 	return dir
 }
